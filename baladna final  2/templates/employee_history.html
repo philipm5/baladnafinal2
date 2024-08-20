@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee History</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: url('/static/images/blurr image.png') no-repeat center top fixed;
+            background-size: cover;
+            color: #e7dfdd;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            background-color: rgba(31, 27, 36, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(143, 0, 255, 0.4);
+            max-width: 600px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #4caf50;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 10px;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+        }
+
+        .info-item span {
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        .pdf-section {
+            margin-top: 20px;
+            color: #ffffff;
+        }
+
+        .pdf-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #4caf50;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 10px;
+        }
+
+        .pdf-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .pdf-list li {
+            margin-bottom: 10px;
+        }
+
+        .pdf-list a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        .pdf-list a:hover {
+            text-decoration: underline;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ employee.name }}'s History</h1>
+        <div class="info-item"><span>ID:</span> {{ employee.id }}</div>
+        <div class="info-item"><span>Phone Number:</span> {{ employee.phone_number }}</div>
+        <div class="info-item"><span>ID Number:</span> {{ employee.id_number }}</div>
+        <div class="info-item"><span>Start Date:</span> {{ employee.start_date }}</div>
+        <div class="info-item"><span>Monthly Salary:</span> {{ employee.formatted_salary }}</div>
+        <div class="info-item"><span>Address:</span> {{ employee.address }}</div>
+
+       <!-- PDF Section -->
+<div class="pdf-section">
+    <h2>PDF History</h2>
+    <ul class="pdf-list">
+        {% if pdf_files %}
+            {% for pdf_file, pdf_url in pdf_files %}
+                <li><a href="{{ pdf_url }}" target="_blank">{{ pdf_file }}</a></li>
+            {% endfor %}
+        {% else %}
+            <li>No PDFs available for this employee.</li>
+        {% endif %}
+    </ul>
+</div>
+
+
+        <a href="{{ url_for('employee_list') }}" class="back-btn">Back to Employee List</a>
+    </div>
+</body>
+
+</html>
